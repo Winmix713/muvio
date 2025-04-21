@@ -1,0 +1,312 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Base styles and CSS variables
+ */
+@layer base {
+  :root {
+    /* Main colors */
+    --background: 220 33% 4%;
+    --foreground: 210 40% 98%;
+
+    /* Card colors */
+    --card: 220 33% 5.5%;
+    --card-foreground: 210 40% 98%;
+
+    /* Popover colors */
+    --popover: 220 33% 5.5%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary colors */
+    --primary: 196 94% 48%;
+    --primary-foreground: 210 40% 98%;
+
+    /* Secondary colors */
+    --secondary: 156 64% 40%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Utility colors */
+    --muted: 220 20% 12%;
+    --muted-foreground: 210 20% 70%;
+    --accent: 35 92% 50%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Border and input colors */
+    --border: 220 20% 18%;
+    --input: 220 20% 16%;
+    --ring: 196 94% 48%;
+
+    /* Border radius */
+    --radius: 0.75rem;
+
+    /* Sidebar colors */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image: radial-gradient(ellipse at top, rgba(59, 130, 246, 0.2), rgba(17, 24, 39, 0.05), transparent);
+    min-height: 100vh;
+  }
+
+  * {
+    @apply border-border;
+  }
+}
+
+/**
+ * Component styles
+ */
+@layer components {
+  /* Card styles */
+  .glass-card {
+    @apply relative overflow-hidden rounded-xl 
+           bg-gradient-to-br from-gray-900/90 via-gray-900/95 to-black 
+           backdrop-blur-sm border border-white/5 
+           hover:border-white/10 
+           transition-all duration-300;
+  }
+
+  .glass-card:before {
+    content: "";
+    @apply absolute inset-0 
+           bg-gradient-to-br from-sports-blue/5 via-sports-green/5 to-sports-blue/5 
+           opacity-0 transition-opacity duration-500;
+  }
+
+  .glass-card:hover:before {
+    @apply opacity-100;
+  }
+
+  .sports-card {
+    @apply relative overflow-hidden rounded-xl 
+           bg-gradient-to-br from-gray-900/90 to-gray-900/95 
+           shadow-lg border border-sports-blue/20 
+           hover:border-sports-blue/30 
+           transition-all duration-300;
+  }
+
+  /* Fixed the syntax error by ensuring proper spacing between Tailwind classes */
+  .sports-card-glow {
+    @apply relative;
+  }
+
+  .sports-card-glow::after {
+    @apply absolute inset-0 rounded-xl;
+    @apply shadow-[0_0_30px_10px_rgba(14,165,233,0.05)];
+    @apply opacity-0 transition-opacity duration-500;
+    content: "";
+  }
+
+  .sports-card-glow:hover::after {
+    @apply opacity-100;
+  }
+
+  /* Animation styles */
+  .animated-gradient {
+    background-size: 400% 400%;
+    animation: gradientAnimation 8s ease infinite;
+  }
+
+  .blur-backdrop {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Match card styles */
+  .match-card {
+    @apply sports-card sports-card-glow 
+           p-5 h-full flex flex-col min-h-[480px];
+  }
+
+  /* Button styles */
+  .prediction-btn {
+    @apply transition-all duration-200 
+           px-3 py-2 rounded-lg 
+           text-sm font-medium;
+  }
+
+  .prediction-btn-active {
+    @apply bg-sports-blue text-white 
+           shadow-md shadow-sports-blue/20;
+  }
+
+  .prediction-btn-inactive {
+    @apply bg-white/5 text-gray-300 
+           hover:bg-white/10;
+  }
+
+  /* Stats card styles */
+  .sports-stats-card {
+    @apply bg-gradient-to-br from-gray-800/50 to-gray-900/80 
+           rounded-xl p-4 border border-white/5 
+           hover:border-sports-blue/20 
+           transition-all duration-300;
+  }
+
+  /* Badge styles */
+  .sports-badge {
+    @apply inline-flex items-center gap-1.5 
+           px-2.5 py-0.5 rounded-full 
+           text-xs font-medium bg-white/10 backdrop-blur-sm;
+  }
+
+  /* Layout styles */
+  .leaderboard-row {
+    @apply flex items-center justify-between 
+           p-3 rounded-lg bg-white/5 
+           hover:bg-white/10 
+           transition-all duration-200;
+  }
+
+  /* Notification styles */
+  .notification-badge {
+    @apply absolute -top-1 -right-1 
+           w-4 h-4 bg-sports-accent rounded-full 
+           flex items-center justify-center 
+           text-xs font-bold;
+  }
+
+  /* Form styles */
+  .input-success {
+    @apply border-sports-green/50 
+           focus:border-sports-green focus:ring-sports-green/20;
+  }
+
+  .input-error {
+    @apply border-red-500/50 
+           focus:border-red-500 focus:ring-red-500/20;
+  }
+
+  /* Filter styles */
+  .filter-active {
+    @apply bg-sports-blue/20 text-sports-blue;
+  }
+
+  .filter-inactive {
+    @apply bg-white/5 text-gray-400 hover:bg-white/10;
+  }
+
+  /* Animation styles */
+  .notification-pop {
+    animation: notificationPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Skeleton loading styles */
+  .skeleton-shimmer {
+    @apply relative overflow-hidden;
+  }
+
+  .skeleton-shimmer::before {
+    content: "";
+    @apply absolute inset-0 -translate-x-full 
+           animate-shimmer 
+           bg-gradient-to-r from-transparent via-white/10 to-transparent;
+  }
+}
+
+/**
+ * Animation keyframes
+ */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes notificationPop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/**
+ * Animation delay utilities
+ */
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+/**
+ * Responsive styles
+ */
+@media (max-width: 640px) {
+  .match-card {
+    @apply p-4 min-h-[400px];
+  }
+
+  .sports-stats-card {
+    @apply p-3;
+  }
+
+  .prediction-btn {
+    @apply py-3;
+  }
+
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  .mobile-stack {
+    @apply flex-col;
+  }
+}
+
